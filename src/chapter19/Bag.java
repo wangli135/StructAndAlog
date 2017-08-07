@@ -108,7 +108,7 @@ public class Bag {
         int[] weight = {2, 4, 7, 1, 9, 10};
         int[] value = {3, 4, 5, 6, 7, 8};
         Bag bag = new Bag();
-        System.out.println(bag.bagFull(6,12, weight, value));
+        System.out.println(bag.bag01Imporve(12,weight, value));
 
     }
 
