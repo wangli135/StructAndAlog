@@ -2,6 +2,8 @@ package chapter9;
 
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 /**
  * 最短路径算法
@@ -51,6 +53,40 @@ public class ShortestPath {
 
                 }
 
+            }
+
+        }
+
+        System.out.println(Arrays.toString(distance));
+        System.out.println(Arrays.toString(path));
+
+    }
+
+    public void unweightedShortestPath2(WeightDigraph g, int s) {
+
+        int vertexCount = g.getVertexCount();
+        boolean[] visited = new boolean[vertexCount];
+        int[] distance = new int[vertexCount];
+        int[] path = new int[vertexCount];
+
+        for (int i = 0; i < distance.length; i++) {
+            distance[i] = -1;
+        }
+        distance[s] = 0;
+
+        LinkedList<Integer> queue = new LinkedList<>();
+        queue.add(s);
+        visited[s] = true;
+        while (!queue.isEmpty()) {
+
+            int v = queue.remove();
+            for (int j = 0; j < vertexCount; j++) {
+                if (g.getMatrix()[v][j] == 1 && !visited[j]) {
+                    distance[j] = distance[v] + 1;
+                    path[j] = v;
+                    visited[j] = true;
+                    queue.add(j);
+                }
             }
 
         }
@@ -126,6 +162,53 @@ public class ShortestPath {
 
     }
 
+    public void dijkstra2(WeightDigraph g, int s) {
+
+        int vertexCount = g.getVertexCount();
+        int[] distance = new int[vertexCount];
+        int[] path = new int[vertexCount];
+        for (int i = 0; i < distance.length; i++) {
+            distance[i] = -1;
+        }
+        distance[s] = 0;
+
+        LinkedList<Integer> queue = new LinkedList<>();
+        queue.add(s);
+        path[s] = 0;
+        while (!queue.isEmpty()) {
+
+            int minIndex = 0;
+            for (int i = 1; i < queue.size(); i++) {
+                if (distance[queue.get(i)] < distance[queue.get(minIndex)]) {
+                    minIndex =i;
+                }
+            }
+            int v = queue.remove(minIndex);
+            for (int j = 0; j < vertexCount; j++) {
+
+                if (g.getMatrix()[v][j] > 0) {
+
+                    if (distance[j] == -1) {
+                        distance[j] = distance[v] + g.getMatrix()[v][j];
+                        path[j] = v;
+                        queue.add(j);
+                    } else if (distance[v] + g.getMatrix()[v][j] < distance[j]) {
+                        //更新
+                        distance[j] = distance[v] + g.getMatrix()[v][j];
+                        path[j] = v;
+                    }
+
+                }
+
+            }
+
+        }
+
+        System.out.println(Arrays.toString(distance));
+        System.out.println(Arrays.toString(path));
+
+    }
+
     public void bellmanFordAlgorithm(WeightDigraph G, int s) {
 
         LinkedList<Integer> queue = new LinkedList<>();
@@ -194,7 +277,7 @@ public class ShortestPath {
         weightDigraph.addEdge(3, 4, 4); //D->E->4
 
         ShortestPath shortestPath = new ShortestPath();
-        shortestPath.dijkstra(weightDigraph, 0);
+        shortestPath.dijkstra2(weightDigraph, 0);
 
 
     }
