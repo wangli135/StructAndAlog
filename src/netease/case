@@ -1,0 +1,130 @@
+aaabbaaac
+2
+3
+1 10 100
+4
+1 2 3 4
+5 2
+0 1 2 3
+5 3
+0 1 2 3
+5 4
+0 1 2 3
+5 6
+0 1 2 3
+import java.util.Scanner;
+import java.util.Stack;
+
+/**
+ * Created by wangl on 2017/8/12.
+ */
+public class Main {
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+        while (scanner.hasNext()) {
+
+            int N = scanner.nextInt();
+            int L = scanner.nextInt();
+
+            int[] array = new int[N - 1];
+            for (int i = 0; i < array.length; i++) {
+                array[i] = scanner.nextInt();
+            }
+
+            handle(N, L, array);
+
+
+        }
+    }
+
+    private static void handle(int n, int step, int[] array) {
+
+
+        //维持节点与节点之间的关系matrix[i][j]表示节点之间有边
+        boolean[][] matrix = new boolean[n][n];
+        for (int i = 0; i < array.length; i++) {
+
+            matrix[i + 1][array[i]] = true;
+            matrix[array[i]][i + 1] = true;
+
+        }
+
+        //代表城市是否被访问过
+        boolean[] visited = new boolean[n];
+
+        visited[0] = true;
+
+        Stack<Integer> stack = new Stack<>();
+        stack.push(0);
+        int num = 1;
+        while (step > 0) {
+
+            int top = stack.peek();
+            int nextCity = findNextCity(matrix, top, visited);
+            if (nextCity != -1) {
+                visited[nextCity] = true;
+                num++;
+                step--;
+                stack.push(nextCity);
+            } else {
+
+                stack.pop();
+                step--;
+
+            }
+
+        }
+
+
+        System.out.println(num);
+
+    }
+
+    /**
+     * 从起始城市找下一个可以到达的城市
+     *
+     * @param matrix
+     * @param start
+     * @param visited
+     * @return
+     */
+    private static int findNextCity(boolean[][] matrix, int start, boolean[] visited) {
+
+        int next = -1;
+
+        for (int i = 0; i < matrix.length; i++) {
+
+            if (matrix[start][i] && !visited[i]) {
+                next = i;
+                break;
+            }
+
+        }
+
+        return next;
+
+
+    }
+
+    /**
+     * 从开始城市走step达到的最多城市
+     *
+     * @param step
+     * @param startCity
+     * @param matrix
+     * @return
+     */
+    private static int visit(int step, int startCity, boolean[][] matrix) {
+
+        if (step == 0)
+            return 0;
+
+
+        return 0;
+    }
+
+
+}
+

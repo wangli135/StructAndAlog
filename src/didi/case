@@ -1,0 +1,53 @@
+4
+3 0 2 2
+5
+0 3 3 2 2
+4
+2 2 3 3
+#include <iostream>
+#include<vector>
+#include<algorithm>
+using namespace std;
+int main()
+{
+	int count;
+	while (cin >> count)
+	{
+		vector<int> arr;
+		for (int i = 0; i < count; i++)
+		{
+			int data;
+			cin >> data;
+			arr.push_back(data);
+		}
+		int start = 0;
+		int sum=0;
+
+		for (int i = 0; i < count; i++)
+		{
+			if (arr[i] == 0)
+			{
+				sum++;
+				start = i + 1;
+				continue;
+			}
+			for (int j = start; j < i; j++)
+			{
+				int flag = 0;
+				for (int k = j; k <= i; k++)
+				{
+					flag ^= arr[k];
+				}
+				if (flag == 0)
+				{
+					sum++;
+					start = i + 1;
+					continue;
+				}
+			}
+		}
+		cout << sum << endl;
+
+	}
+	return 0;
+}
