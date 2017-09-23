@@ -9,21 +9,25 @@ public class Test2 {
 
     public static void main(String[] args) {
 
-        Scanner scanner = new Scanner(System.in);
-        while (scanner.hasNext()) {
+//        Scanner scanner = new Scanner(System.in);
+//        while (scanner.hasNext()) {
+//
+//            int N = scanner.nextInt();
+//            int M = scanner.nextInt();
+//
+//            int[] array = new int[N];
+//            for (int i = 0; i < N; i++) {
+//                array[i] = scanner.nextInt();
+//            }
+//
+//            handle(array, N, M);
+//
+//
+//        }
 
-            int N = scanner.nextInt();
-            int M = scanner.nextInt();
 
-            int[] array = new int[N];
-            for (int i = 0; i < N; i++) {
-                array[i] = scanner.nextInt();
-            }
-
-            handle(array, N, M);
-
-
-        }
+        Integer i=new Integer(9);
+        System.out.println(i instanceof Object);
 
     }
 
